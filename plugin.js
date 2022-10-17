@@ -25,7 +25,7 @@ function fastifyCookieSetCookie (reply, name, value, options, signer) {
   }
 
   const serialized = cookie.serialize(name, value, opts)
-  let setCookie = reply.getHeader('Set-Cookie')
+  let setCookie = reply.getHeader('Set-Cookie') || reply.getHeader('set-cookie')
   if (!setCookie) {
     reply.header('Set-Cookie', serialized)
     return reply
