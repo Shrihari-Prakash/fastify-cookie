@@ -36,6 +36,14 @@ function fastifyCookieSetCookie (reply, name, value, options, signer) {
   }
 
   setCookie.push(serialized)
+
+  setCookie.forEach((serializedCookie, index) => {
+    const parsedSetCookie = cookie.parse(serializedCookie)
+    if(parsedSetCookie[name]) {
+      setCookie.splice(index, 1)
+    }
+  });
+
   reply.removeHeader('Set-Cookie')
   reply.header('Set-Cookie', setCookie)
   return reply
